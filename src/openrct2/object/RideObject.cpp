@@ -348,8 +348,7 @@ void RideObject::SetRepositoryItem(ObjectRepositoryItem * item) const
         item->RideCategory[i] = _legacyType.category[i];
     }
 
-    uint8 flags = 0;
-    item->RideFlags = flags;
+    item->RideFlags = 0;
 
     // Find the first non-null ride type, to be used when checking the ride group
     uint8 rideTypeIdx = ride_entry_get_first_non_null_ride_type(&_legacyType);
@@ -777,8 +776,6 @@ void RideObject::ReadJson(IReadObjectContext * context, const json_t * root)
         _legacyType.category[0] = RIDE_CATEGORY_SHOP;
         _legacyType.category[1] = RIDE_CATEGORY_SHOP;
     }
-
-    _legacyType.flags |= RIDE_ENTRY_FLAG_SEPARATE_RIDE;
 
     auto stringTable = GetStringTable();
     auto jsonStrings = json_object_get(root, "strings");
