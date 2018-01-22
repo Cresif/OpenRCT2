@@ -231,22 +231,22 @@ void research_finish_item(rct_research_item * researchItem)
 
             bool seenRideEntry[MAX_RIDE_OBJECTS];
 
-            rct_research_item * researchItem = gResearchItems;
-            for (; researchItem->entryIndex != RESEARCHED_ITEMS_END; researchItem++)
+            rct_research_item * researchItem2 = gResearchItems;
+            for (; researchItem2->rawValue != RESEARCHED_ITEMS_END; researchItem2++)
             {
                 if (
-                    researchItem->entryIndex != RESEARCHED_ITEMS_SEPARATOR &&
-                    researchItem->entryIndex >= RESEARCH_ENTRY_RIDE_MASK
+                    researchItem2->rawValue != RESEARCHED_ITEMS_SEPARATOR &&
+                    researchItem2->type == RESEARCH_ENTRY_TYPE_RIDE
                     )
                 {
-                    uint8 index = researchItem->entryIndex & 0xFF;
+                    uint8 index = researchItem2->entryIndex;
                     seenRideEntry[index] = true;
                 }
             }
 
             // RCT2 made non-separated vehicles available at once, by removing all but one from research.
             // To ensure old files keep working, look for ride entries not in research, and make them available as well.
-            for (sint32 i = 0; i < MAX_RESEARCHED_RIDE_ENTRIES; i++)
+            for (sint32 i = 0; i < MAX_RIDE_OBJECTS; i++)
             {
                 if (!seenRideEntry[i])
                 {
